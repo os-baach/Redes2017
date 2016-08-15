@@ -20,8 +20,8 @@ class Calculator:
     # Verifica que el usuario esté registrado
     # Formato del archivo: usuario contraseña\n
     def busca_usuario(self, usuario, contrasena):
-        crip = encripta_contrasena(contrasena)
-        archivo = open(os.getcwd() + '/Input.txt', 'r')
+        crip = self.encripta_contrasena(contrasena)
+        archivo = open(os.path.dirname(os.path.realpath(__file__)) + '/Input.txt', 'r')
         linea = archivo.readline()
         while linea: # Mientras no hayamos llegado al final del archivo
             lista = linea.split(' ')
@@ -38,7 +38,7 @@ class Calculator:
     # Registra a un usuario para usar la calculadora
     def registra(self, usuario, contrasena):
         # Primero vemos que el usuario no esté registrado
-        archivo = open(os.getcwd() + '/Input.txt',  'r+')
+        archivo = open(os.path.dirname(os.path.realpath(__file__)) + '/Input.txt',  'r+')
         linea = archivo.readline()
         while linea: # Mientras no hayamos llegado al final del archivo
             lista = linea.split(' ')
@@ -46,7 +46,7 @@ class Calculator:
                 archivo.close()
                 raise ValueError('El usuario ya está registrado')
             linea = archivo.readline()
-        f.write(usuario + encripta_contrasena(contrasena) + '\n')
-        f.close()
+        archivo.write(usuario + ' ' + self.encripta_contrasena(contrasena) + ' ' + '\n')
+        archivo.close()
         
         
