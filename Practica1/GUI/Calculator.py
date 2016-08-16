@@ -1,6 +1,9 @@
 import os
 # Clase que representa a una calculadora que suma y resta
 class Calculator:
+
+    def __init__(self):
+        pass
     
     # Suma
     def suma(self, n1, n2):
@@ -10,6 +13,24 @@ class Calculator:
     def resta(self, n1, n2):
         return n1-n2
 
+    def multiplica(self, n1, n2):
+        return n1*n2
+
+    def divide(self, n1,n2):
+        if n2 == 0:
+            return "error"
+        else:
+            return n1/n2
+
+    def modulo(self,n1,n2):
+        return n1%n2
+
+    def cuadrado(self,n1,n2):
+        if n2 == 0:
+            return 1
+        else:
+            return n1 * (self.cuadrado(n1,n2-1))
+    
     # Encripta una contrasenia
     def encripta_contrasena(self, contrasena):
         nueva_contrasena = ''

@@ -1,18 +1,31 @@
+# -*- coding: utf-8 -*-
 import sys
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt
-sys.path.append('../Constants')
-sys.path.append('../Code')
-import Constants
+#sys.path.append('../Constants')
+#sys.path.append('../Code')
+from Constants import * 
 import Calculator
 from Parser import *
 
+
 class Calculadora(QtGui.QMainWindow):
- 
+
+    # Método constructor del GUI
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
+            #VARIABLES PARA GUARDAR EL ARBOL DE SINTAXIS ABSTRACTO:
+        self.numero1 = -1
+        self.numero2 = -1
+        self.resultado = 3.1416
+        self.operador = ""
+        self.presionado = False
+        self.operando = False
+        self.mostrar = 0
+
         self.calculadora()
 
+    # Interfaz gráfica de la calculadora.
     def calculadora(self):
 
         self.line = QtGui.QLineEdit(self)
@@ -95,18 +108,18 @@ class Calculadora(QtGui.QMainWindow):
         modulo.move(170,145)
         modulo.resize(35,30)
 
-        potencia = QtGui.QPushButton("x²",self)
+        potencia = QtGui.QPushButton("x^2",self)
         potencia.move(170,180)
         potencia.resize(35,30)
         
         numeros = [cero,uno,dos,tres,cuatro,cinco,seis,siete,ocho,nueve]
 
-        operaciones = [c,punto,mas,menos,multiplicacion,division,modulo,potencia,igual]
+        operaciones = [c,punto,mas,menos,multiplicacion,division,modulo,potencia]
 
         for i in numeros:
             i.clicked.connect(self.Numeros)
         
-        for i in operaciones[1:3]:
+        for i in operaciones[2:]:
             i.clicked.connect(self.Operaciones)
 
         self.setGeometry(300,300,210,220)
@@ -114,52 +127,69 @@ class Calculadora(QtGui.QMainWindow):
         self.setWindowTitle("Calculadora")
         self.show()
 
-    def Numeros(self,presionado):        
+        
+    def Numeros(self,presion):
         sender = self.sender()
-        numero2 = int(sender.text())
-        ponerNumero = str(numero2)
-
-        if presionado == False:
-            self.line.setText(self.line.text() + ponerNumero)
-
+        if self.operando == False:
+            if self.numero1 == -1:
+                self.numero1 = int(sender.text())
+            else:
+                self.numero1 = (self.numero1*10) + int(sender.text())
+            ponerNumero = str(self.numero1)
+        else:
+            if self.numero2 == -1:
+                self.numero2 = int(sender.text())
+                ultimo = self.numero2
+            else:
+                ultimo = int(sender.text())
+                self.numero2 = (self.numero2*10) + ultimo
+            self.presionado = True
+            ponerNumero = str(self.numero2)
+        if self.presionado == True:
+            self.line.setText(self.line.text() + str(ultimo))
         else:
             self.line.setText(ponerNumero)
-            presionado = False
-
+            
+    
     def Operaciones(self,mostrar):
-        sender = self.sender()                        
-        mostrar += 1
-        numero1 = self.line.text()
         sender = self.sender()
-        operador = sender.text()
-        presionado = True
-        self.line.setText(self.line.text()+sender.text())
+        if self.operando == False:
+            self.operando = True
+            mostrar += 1
+            self.operador = sender.text()
+            if self.operador == "x^2":
+                self.operador = "^"                
+            self.line.setText(self.line.text() + self.operador)
         
     def Igual(self,opera):
         mostrar = 0
-        numero2 = self.line.text()
-        arbolSintactico = Parser(numero2)
-        print(arbolSintactico.numero1)
-        print(arbolSintactico.numero2)
-        print(arbolSintactico.operador)
-        
-        self.line.setText(str(resultado))
-        presionado = True 
+        self.numero1 = int(self.numero1)
+        self.numero2 = int(self.numero2)
+        arbolSintactico = Parser(self)
+        self.resultado = arbolSintactico.realiza_op()
+        print(self.resultado)
+        self.line.setText(str(self.resultado))
+        self.presionado = False
+        self.numero1 = -1
+        self.numero2 = -1
+        self.operador = ""
 
     def C(self):
         self.line.clear()
-
-        numero1 = 0
-        numero2 = 0
-        resultado = 0
-        operador = ""
+        self.operando = False
+        self.presionado = False
+        self.numero1 = -1
+        self.numero2 = -1
+        self.resultado = 3.1416
+        self.operador = ""
 
 def main():
+    set_global()
     app = QtGui.QApplication(sys.argv)
     main= Calculadora()
     main.show()
     window = QtGui.QWidget()
-    window.setWindowTitle("Practica01") 
+    window.setWindowTitle("Calculadora") 
     sys.exit(app.exec_())
  
 if __name__ == "__main__":
