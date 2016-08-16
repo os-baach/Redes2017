@@ -169,6 +169,7 @@ class Calculadora(QtGui.QMainWindow):
         self.resultado = arbolSintactico.realiza_op()
         print(self.resultado)
         self.line.setText(str(self.resultado))
+        self.operando = False
         self.presionado = False
         self.numero1 = -1
         self.numero2 = -1
