@@ -15,13 +15,32 @@
 # Distributed under terms of the MIT license.        #
 #################################################### #
 import sys, getopt
+import os
+from os import path
 from PyQt4 import QtCore, QtGui
+from GUI.principal import Ui_Chat
+
+
+
+class mi_skype(QtGui.QMainWindow, Ui_Chat):
+    
+    def __init__(self, parent=None):
+        QtGui.QMainWindow.__init__(self,parent)
+        self.setupUi(self)
 
 
 # **************************************************
 #  Definicion de la funcion principal
 #**************************************************
 def main(argv):
+    #set_global()
+    app = QtGui.QApplication(sys.argv)
+    main = mi_skype()
+    main.show()
+    #main= mi_skype()
+    #main.show()
+    window = QtGui.QWidget()
+    window.setWindowTitle("Chat")
     try:
         opts, args = getopt.getopt(argv, "l", ["local="])
     except getopt.GetoptError:
@@ -31,10 +50,9 @@ def main(argv):
         local = True if '-l' in opts[0] else False
     else:
         local = False
-    app = QtGui.QApplication(sys.argv)
     #TODO Llamar a su ventana de login
     sys.exit(app.exec_())
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    main("")
