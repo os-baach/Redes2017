@@ -1,4 +1,3 @@
 #! /usr/bin/env python
 
-#TODO
-
+DEFAULT_PORT = 5000
