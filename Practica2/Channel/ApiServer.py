@@ -4,7 +4,7 @@
 
 class MyApiServer:
     def __init__(self, my_port = None):
-        self.port = my_port
+        #TODO
 class FunctionWrapper:
     def __init__(self):
         #TODO
@@ -15,7 +15,7 @@ class FunctionWrapper:
     hacer lo necesario para mostrar el texto en nuestra pantalla.
     ************************************************** """
     def sendMessage_wrapper(self, message):
-        return str(message)
+        #TODO
 
 
 
