@@ -7,9 +7,12 @@ from Constants import DEFAULT_PORT
 
 class MyApiClient:
 
-    def __init__(self, my_port = DEFAULT_PORT):
+    def __init__(self, ip = None, my_port = DEFAULT_PORT):
         # El servidor que nos mandará el texto:
-        self.server = xmlrpclib.Server('http://localhost:' + str(my_port))
+        if not ip:
+            self.server = xmlrpclib.Server('http://localhost:' + str(my_port))
+        else:
+            self.server = xmlrpclib.Server('http://' + ip  + ':' + str(my_port))
 
     # Muestra el texto recibido
     def muestra_texto(self, texto):

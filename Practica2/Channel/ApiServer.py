@@ -2,16 +2,18 @@
 # -*- coding: utf-8 -*-
 import sys
 sys.path.append('../Constants/')
-import SimpleXMLRPCServer as serv
+import SimpleXMLRPCServer
 from Constants import DEFAULT_PORT
 
 class MyApiServer:
     def __init__(self, my_port = DEFAULT_PORT):
         # Se crea un servidor en localhost:
-        self.server = serv.SimpleXMLRPCServer(("localhost", my_port))
+        self.server = SimpleXMLRPCServer.SimpleXMLRPCServer(("localhost", my_port))
         # Se registran las funciones del FunctionWrapper en el servidor:
         self.server.register_instance(FunctionWrapper())
-        # Creo que es necesario que el servidor no pare:
+       
+    # Inicializamos el servidor
+    def serve(self):
         self.server.serve_forever()
         
 class FunctionWrapper:
