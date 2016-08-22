@@ -16,11 +16,13 @@
 #################################################### #
 import sys, getopt
 import os
+sys.path.insert(0, '/')
+sys.path.insert(0, './GUI')
+sys.path.insert(0, './Constants')
+
 from os import path
 from PyQt4 import QtCore, QtGui
-from GUI.principal import Ui_Chat
-
-
+from principal import Ui_Chat
 
 class mi_skype(QtGui.QMainWindow, Ui_Chat):
     

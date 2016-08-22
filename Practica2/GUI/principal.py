@@ -6,8 +6,11 @@
 #
 # WARNING! All changes made in this file will be lost!
 
+import sys
+sys.path.append('../Channel/')
 from PyQt4 import QtCore, QtGui
-
+from Channel import Channel
+ 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -54,4 +57,9 @@ class Ui_Chat(object):
         self.lineEdit.setPlaceholderText(_translate("Chat", "[Escribe aquí el texto]", None))
         self.label.setText(_translate("Chat", "Ingresar\n"
 " texto:", None))
+        # Crea el canal de comunicación(?)
+        #canal = Channel()
+        # Creo que así se le asigna una función a un botón:
+        #self.buttonBox.clicked.connect(canal.send_text, args=('hola_rick'))
+        
 
