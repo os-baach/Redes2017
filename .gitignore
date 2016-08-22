@@ -3,3 +3,4 @@ DS_Store
 clean.sh
 *.pdf
 *__pycache__*
+*.pyc
