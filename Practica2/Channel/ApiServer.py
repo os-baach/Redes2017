@@ -8,7 +8,7 @@ from Constants import DEFAULT_PORT
 class MyApiServer:
     def __init__(self, my_port = DEFAULT_PORT):
         # Se crea un servidor en localhost:
-        self.server = SimpleXMLRPCServer.SimpleXMLRPCServer(("localhost", my_port))
+        self.server = SimpleXMLRPCServer.SimpleXMLRPCServer(("localhost", my_port), allow_none=True)
         # Se registran las funciones del FunctionWrapper en el servidor:
         self.server.register_instance(FunctionWrapper())
        
@@ -28,7 +28,7 @@ class FunctionWrapper:
     ************************************************** """
     def sendMessage_wrapper(self, message):
         # Regresamos el mensaje pa' que lo agarre el servidor:
-        return message
+        print message
 
 
 

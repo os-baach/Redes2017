@@ -17,4 +17,4 @@ class MyApiClient:
     # Muestra el texto recibido
     def muestra_texto(self, texto):
         # Espero esto sea lo que hay que hacer:
-        print self.server.sendMessage_wrapper(texto)
+        self.server.sendMessage_wrapper(texto)

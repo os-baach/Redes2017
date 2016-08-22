@@ -25,9 +25,10 @@ class Channel():
     @param <int> contact_port: De trabajar de manera local
                 representa el puerto de la instancia del contacto
     **************************************************"""
-    def __init__(self, contact_ip = None, contact_port = DEFAULT_PORT):
+    def __init__(self, contact_ip = None, my_port=DEFAULT_PORT, contact_port = 5001
+    ):
         # Correrá en el fondo:
-        servidor = MyApiServer(my_port = contact_port)
+        servidor = MyApiServer(my_port = my_port)
         thread_servidor = Thread(target = servidor.serve)
         thread_servidor.start()
         self.client = MyApiClient(ip = contact_ip, my_port = contact_port)
