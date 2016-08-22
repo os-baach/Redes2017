@@ -1,9 +1,12 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
+import sys
+sys.path.append('../Constants/')
 import SimpleXMLRPCServer as serv
+from Constants import DEFAULT_PORT
 
 class MyApiServer:
-    def __init__(self, my_port = Constants.DEFAULT_PORT):
+    def __init__(self, my_port = DEFAULT_PORT):
         # Se crea un servidor en localhost:
         self.server = serv.SimpleXMLRPCServer(("localhost", my_port))
         # Se registran las funciones del FunctionWrapper en el servidor:
@@ -16,7 +19,7 @@ class FunctionWrapper:
         # No estoy seguro de que haya algo que inicializar:
         pass
 
-     """ **************************************************
+    """ **************************************************
     Procedimiento que ofrece nuestro servidor, este metodo sera llamado
     por el cliente con el que estamos hablando, debe de
     hacer lo necesario para mostrar el texto en nuestra pantalla.
