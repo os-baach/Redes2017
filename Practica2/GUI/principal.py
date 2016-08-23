@@ -191,7 +191,7 @@ class Ui_Chat(object):
         self.pushButton_2.setText(_translate("Chat", "Aceptar", None))
         self.label_2.setText(_translate("Chat", "¿Cuál es mi puerto?                     ", None))
         self.label_3.setText(_translate("Chat", "¿Cuál es el puerto del contacto?", None))
-        self.label_4.setText(_translate("Chat", "Opcional: ¿Cuál es la dirección ip del contacto?", None))
+        self.label_4.setText(_translate("Chat", "Opcional: ¿Dirección ip del contacto?", None))
         self.label.setText(_translate("Chat", "Ingresar\n"
 " texto:", None))
         self.lineEdit.setPlaceholderText(_translate("Chat", "[Escribe aquí el texto]", None))
