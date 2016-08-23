@@ -3,7 +3,7 @@
 import sys
 sys.path.append('../Constants/')
 import xmlrpclib
-from Constants import DEFAULT_PORT
+from Constants.Constants import DEFAULT_PORT
 
 class MyApiClient:
 

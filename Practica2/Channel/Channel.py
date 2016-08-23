@@ -1,8 +1,10 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
-import sys
+import sys, getopt
+sys.path.insert(0, '/')
+sys.path.insert(0, '../Constants')
 sys.path.append('../Constants/')
-from Constants import DEFAULT_PORT
+from Constants.Constants import DEFAULT_PORT
 from ApiServer import MyApiServer
 from ApiClient import MyApiClient
 from threading import Thread
@@ -25,9 +27,10 @@ class Channel():
     @param <int> contact_port: De trabajar de manera local
                 representa el puerto de la instancia del contacto
     **************************************************"""
-    def __init__(self, contact_ip = None, my_port, contact_port):
+    def __init__(self, my_port, contact_port, interfaz, contact_ip = None):
         # Correrá en el fondo:
-        servidor = MyApiServer(my_port = my_port)
+        self.interfaz = interfaz
+        servidor = MyApiServer(self.interfaz, my_port = my_port)
         thread_servidor = Thread(target = servidor.serve)
         thread_servidor.start()
         self.client = MyApiClient(ip = contact_ip, my_port = contact_port)

@@ -16,13 +16,11 @@
 #################################################### #
 import sys, getopt
 import os
-sys.path.insert(0, '/')
-sys.path.insert(0, './GUI')
-sys.path.insert(0, './Constants')
-
 from os import path
 from PyQt4 import QtCore, QtGui
-from principal import Ui_Chat
+from GUI.principal import Ui_Chat
+
+
 
 class mi_skype(QtGui.QMainWindow, Ui_Chat):
     
@@ -35,12 +33,9 @@ class mi_skype(QtGui.QMainWindow, Ui_Chat):
 #  Definicion de la funcion principal
 #**************************************************
 def main(argv):
-    #set_global()
     app = QtGui.QApplication(sys.argv)
     main = mi_skype()
     main.show()
-    #main= mi_skype()
-    #main.show()
     window = QtGui.QWidget()
     window.setWindowTitle("Chat")
     try:
