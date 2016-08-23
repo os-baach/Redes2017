@@ -32,6 +32,8 @@ class Channel():
         self.interfaz = interfaz
         servidor = MyApiServer(self.interfaz, my_port = my_port)
         thread_servidor = Thread(target = servidor.serve)
+        # Para que el thread se cierre al cerrar el programa:
+        thread_servidor.daemon=True
         thread_servidor.start()
         self.client = MyApiClient(ip = contact_ip, my_port = contact_port)
         
