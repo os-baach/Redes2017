@@ -173,7 +173,7 @@ class Ui_Chat(object):
             mi_puerto = DEFAULT_PORT
         if not self.num(su_puerto):
             su_puerto = DEFAULT_PORT
-        if su_ip == "":
+        if su_ip != "":
             self.canal = Channel(int(str(mi_puerto)),int(str(su_puerto)),self,su_ip)
         else:
             self.canal = Channel(int(str(mi_puerto)),int(str(su_puerto)),self)

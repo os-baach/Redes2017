@@ -9,6 +9,7 @@ class MyApiClient:
 
     def __init__(self, ip = None, my_port = DEFAULT_PORT):
         # El servidor que nos mandará el texto:
+        print(ip)
         if not ip:
             self.server = xmlrpclib.Server('http://localhost:' + str(my_port))
         else:
