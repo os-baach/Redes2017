@@ -139,7 +139,7 @@ class Ui_Chat(object):
     def enviar_msg(self):
         mensaje = self.lineEdit.text()
         self.canal.send_text("%s" % mensaje)
-        time.sleep(0.5)
+        time.sleep(0.25)
         self.plainTextEdit.insertPlainText("Yo: "+mensaje+"\n")
         self.plainTextEdit.insertPlainText("\n")
         self.lineEdit.clear()

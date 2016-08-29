@@ -30,7 +30,11 @@ class Channel():
     def __init__(self, my_port, contact_port, interfaz, contact_ip = None):
         # Correrá en el fondo:
         self.interfaz = interfaz
-        servidor = MyApiServer(self.interfaz, my_port = my_port)
+        if contact_ip:
+            con_local = False
+        else:
+            con_local = True
+        servidor = MyApiServer(self.interfaz, con_local,  my_port = my_port)
         thread_servidor = Thread(target = servidor.serve)
         # Para que el thread se cierre al cerrar el programa:
         thread_servidor.daemon=True
