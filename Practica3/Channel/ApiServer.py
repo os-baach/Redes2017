@@ -13,7 +13,7 @@ import SimpleXMLRPCServer
 from Constants.Constants import DEFAULT_PORT
 from Constants.Singleton import *
 
-
+#Función para optener nuestra ip local.
 def get_local_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("google.com",80))
@@ -44,6 +44,7 @@ class FunctionWrapper:
         self.interfaz = interfaz
         pass
 
+    #Creamos el wrapper del sonido.
     def sendVoice_wrapper(self, audio):
         my_pyaudio = pyaudio.PyAudio()
         FORMAT = my_pyaudio.get_format_from_width(2)

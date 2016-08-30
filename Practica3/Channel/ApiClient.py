@@ -8,13 +8,14 @@ import multiprocessing
 import threading
 import pyaudio
 import numpy
-
+"""Constantes para la reproduccion de audio. """
 CHUNK = 1024
 RATE = 44100
 RECORD_SECONDS = 2
 
 class MyApiClient:
 
+    """ El ip y my_port son los ip y port de conexion. """
     def __init__(self, ip = None, my_port = DEFAULT_PORT):
         # El servidor que nos mandará el texto:
         self.llamada = False
@@ -24,11 +25,12 @@ class MyApiClient:
             self.server = xmlrpclib.Server('http://localhost:' + str(my_port))
         else:
             self.server = xmlrpclib.Server('http://' + ip  + ':' + str(my_port))
-            
+
+    """ Metodo que modifica nuestra variable de clase para saber cuando seguir transmitiendo. """        
     def colgar(self):
         self.llamada = False
             
-            
+    """ Metodo para enviar audio a nuestro servidor destino y agregarlo a una cola. """
     def envia_audio(self):
         if not self.llamada:
             self.llamada = True
@@ -43,8 +45,9 @@ class MyApiClient:
             while self.llamada:
                 datos_encolados = self.queue.get()
                 data = xmlrpclib.Binary(datos_encolados)
-                self.proxy.sendVoice_wrapper(data)            
-            
+                self.proxy.sendVoice_wrapper(data)
+        
+    """ En esta función se agrega a la cola el audio con data para transmitir al destino y encolar las grabaciones """    
     def agrega_cola(self, cola):
         self.pyaudio = pyaudio.PyAudio()
         self.pyaudio_format = self.pyaudio.get_format_from_width(2)
