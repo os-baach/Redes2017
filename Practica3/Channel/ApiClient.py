@@ -29,11 +29,14 @@ class MyApiClient:
     """ Metodo que modifica nuestra variable de clase para saber cuando seguir transmitiendo. """        
     def colgar(self):
         self.llamada = False
+
+    def reiniciar(self):
+        self.llamada = True
             
     """ Metodo para enviar audio a nuestro servidor destino y agregarlo a una cola. """
     def envia_audio(self):
         if not self.llamada:
-            self.llamada = True
+            self.reiniciar()
             self.queue = multiprocessing.Queue()
             self.hilo_llamada = threading.Thread(target=self.agrega_cola, args=(self.queue,))
             self.hilo_llamada.daemon = True

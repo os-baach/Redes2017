@@ -53,7 +53,7 @@ class Channel():
         self.client.colgar()
 
     #Método para regresar a la llamada o iniciar una nueva.
-    def llamar(self):
-        self.llamadaThread = Thread(target=self.client.envia_audio)
-        self.llamadaThread.daemon = True
+    def llamar(self):        
+        self.llamadaThread = Thread(target=self.client.envia_audio)  
+        self.llamadaThread.daemon = True        
         self.llamadaThread.start()
