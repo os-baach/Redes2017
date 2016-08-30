@@ -34,7 +34,7 @@ except AttributeError:
 class Ui_Chat(object):
     def setupUi(self, Chat):
         #Pripio:
-        self.canal = None 
+        self.canal = None        
         Chat.setObjectName(_fromUtf8("Chat"))
         Chat.resize(741, 485)
         self.stackedWidget = QtGui.QStackedWidget(Chat)
@@ -93,6 +93,12 @@ class Ui_Chat(object):
         self.label_4.setScaledContents(False)
         self.label_4.setObjectName(_fromUtf8("label_4"))
         self.gridLayout_3.addWidget(self.label_4, 1, 0, 1, 1)
+        self.formLayoutWidget.raise_()
+        self.gridLayoutWidget.raise_()
+        self.gridLayoutWidget_2.raise_()
+        self.label_3.raise_()
+        self.label_3.raise_()
+        self.gridLayoutWidget_3.raise_()
         self.stackedWidget.addWidget(self.page_2)
         self.page = QtGui.QWidget()
         self.page.setObjectName(_fromUtf8("page"))
@@ -113,48 +119,24 @@ class Ui_Chat(object):
         self.label.setObjectName(_fromUtf8("label"))
         self.horizontalLayout.addWidget(self.label)
         self.lineEdit = QtGui.QLineEdit(self.verticalLayoutWidget)
-        self.lineEdit.setObjectName(_fromUtf8("lineEdit"))
+        self.lineEdit.setObjectName(_fromUtf8("lineEdit"))        
         self.horizontalLayout.addWidget(self.lineEdit)
         self.verticalLayout_2.addLayout(self.horizontalLayout)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.pushButton_3 = QtGui.QPushButton(self.verticalLayoutWidget)
-        self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
-        self.horizontalLayout_2.addWidget(self.pushButton_3)
         self.Salir = QtGui.QPushButton(self.verticalLayoutWidget)
-        self.Salir.setObjectName(_fromUtf8("Salir"))
-        self.horizontalLayout_2.addWidget(self.Salir)
+        self.Salir.setObjectName(_fromUtf8("Salir"))        
         self.verticalLayout_2.addLayout(self.horizontalLayout_2)
+        self.verticalLayoutWidget.raise_()
+        self.plainTextEdit.raise_()
         self.stackedWidget.addWidget(self.page)
-        self.page_3 = QtGui.QWidget()
-        self.page_3.setObjectName(_fromUtf8("page_3"))
-        self.verticalLayoutWidget_2 = QtGui.QWidget(self.page_3)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(80, 40, 551, 371))
-        self.verticalLayoutWidget_2.setObjectName(_fromUtf8("verticalLayoutWidget_2"))
-        self.verticalLayout = QtGui.QVBoxLayout(self.verticalLayoutWidget_2)
-        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.plainTextEdit_2 = QtGui.QPlainTextEdit(self.verticalLayoutWidget_2)
-        self.plainTextEdit_2.setTabStopWidth(90)
-        self.plainTextEdit_2.setTextInteractionFlags(QtCore.Qt.TextSelectableByKeyboard|QtCore.Qt.TextSelectableByMouse)
-        self.plainTextEdit_2.setObjectName(_fromUtf8("plainTextEdit_2"))
-        self.verticalLayout.addWidget(self.plainTextEdit_2, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
-        self.horizontalLayout_5 = QtGui.QHBoxLayout()
-        self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
-        self.pushButton_5 = QtGui.QPushButton(self.verticalLayoutWidget_2)
-        self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
-        self.horizontalLayout_5.addWidget(self.pushButton_5)
-        self.pushButton_4 = QtGui.QPushButton(self.verticalLayoutWidget_2)
-        self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
-        self.horizontalLayout_5.addWidget(self.pushButton_4)
-        self.verticalLayout.addLayout(self.horizontalLayout_5)
-        self.stackedWidget.addWidget(self.page_3)
-
+        
         self.lineEdit.returnPressed.connect(self.enviar_msg)        
         self.horizontalLayout_2.addWidget(self.Salir)
         self.retranslateUi(Chat)
         self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Chat)
-
+        
     def enviar_msg(self):
         mensaje = self.lineEdit.text()
         self.canal.send_text("%s" % mensaje)
@@ -203,20 +185,6 @@ class Ui_Chat(object):
             self.stackedWidget.setCurrentIndex(0)
         #t = threading.Thread(target=self.worker)
         #t.start()        
-        
-    def regresar_chat(self):
-        idx = self.stackedWidget.currentIndex()
-        if idx < self.stackedWidget.count() - 1:
-            self.stackedWidget.setCurrentIndex(idx - 1)
-        else:
-            self.stackedWidget.setCurrentIndex(1)
-            
-    def llamar(self):
-        idx = self.stackedWidget.currentIndex()
-        if idx < self.stackedWidget.count() - 1:
-            self.stackedWidget.setCurrentIndex(idx + 1)
-        else:
-            self.stackedWidget.setCurrentIndex(1)
 
     def retranslateUi(self, Chat):
         Chat.setWindowTitle(_translate("Chat", "Chat", None))
@@ -224,20 +192,11 @@ class Ui_Chat(object):
         self.pushButton_2.setText(_translate("Chat", "Aceptar", None))
         self.label_2.setText(_translate("Chat", "¿Cuál es mi puerto?                     ", None))
         self.label_3.setText(_translate("Chat", "¿Cuál es el puerto del contacto?", None))
-        self.label_4.setText(_translate("Chat", "Opcional: ¿Cuál es la dirección ip del contacto?", None))
+        self.label_4.setText(_translate("Chat", "Opcional: ¿Dirección ip del contacto?", None))
         self.label.setText(_translate("Chat", "Ingresar\n"
 " texto:", None))
         self.lineEdit.setPlaceholderText(_translate("Chat", "[Escribe aquí el texto]", None))
-        self.pushButton_3.setText(_translate("Chat", "Llamar a contacto", None))
         self.Salir.setText(_translate("Chat", "Salir", None))
-        self.plainTextEdit_2.setPlainText(_translate("Chat", "LLAMADA EN CURSO", None))
-        self.pushButton_5.setText(_translate("Chat", "Regresar al chat", None))
-        self.pushButton_4.setText(_translate("Chat", "Salir", None))
-        #Funciones de comportamiento:
-        self.pushButton_4.clicked.connect(self.salir)
-        self.pushButton_5.clicked.connect(self.regresar_chat)
-        self.pushButton_3.clicked.connect(self.llamar)
         self.pushButton.clicked.connect(self.salir)
         self.Salir.clicked.connect(self.salir)
         self.pushButton_2.clicked.connect(self.__next_page)
-

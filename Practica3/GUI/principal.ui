@@ -139,12 +139,6 @@
       </item>
      </layout>
     </widget>
-    <zorder>formLayoutWidget</zorder>
-    <zorder>gridLayoutWidget</zorder>
-    <zorder>gridLayoutWidget_2</zorder>
-    <zorder>label_3</zorder>
-    <zorder>label_3</zorder>
-    <zorder>gridLayoutWidget_3</zorder>
    </widget>
    <widget class="QWidget" name="page">
     <widget class="QWidget" name="verticalLayoutWidget">
@@ -192,6 +186,13 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="text">
+           <string>Llamar a contacto</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="Salir">
           <property name="text">
            <string>Salir</string>
@@ -202,8 +203,51 @@
       </item>
      </layout>
     </widget>
-    <zorder>verticalLayoutWidget</zorder>
-    <zorder>plainTextEdit</zorder>
+   </widget>
+   <widget class="QWidget" name="page_3">
+    <widget class="QWidget" name="verticalLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>40</y>
+       <width>551</width>
+       <height>371</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+       <widget class="QPlainTextEdit" name="plainTextEdit_2">
+        <property name="plainText">
+         <string>LLAMADA EN CURSO</string>
+        </property>
+        <property name="tabStopWidth">
+         <number>90</number>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QPushButton" name="pushButton_5">
+          <property name="text">
+           <string>Regresar al chat</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_4">
+          <property name="text">
+           <string>Salir</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
    </widget>
   </widget>
  </widget>
