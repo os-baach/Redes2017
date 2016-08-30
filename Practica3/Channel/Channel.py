@@ -48,4 +48,10 @@ class Channel():
     def send_text(self, text):
         self.client.muestra_texto(text)
         
+    def colgar(self):
+        self.client.colgar()
 
+    def llamar(self):
+        self.llamadaThread = Thread(target=self.client.envia_audio)
+        self.llamadaThread.daemon = True
+        self.llamadaThread.start()

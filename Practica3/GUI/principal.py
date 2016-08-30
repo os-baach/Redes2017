@@ -210,6 +210,7 @@ class Ui_Chat(object):
             self.stackedWidget.setCurrentIndex(idx - 1)
         else:
             self.stackedWidget.setCurrentIndex(1)
+        self.colgar()
             
     def llamar(self):
         idx = self.stackedWidget.currentIndex()
@@ -217,6 +218,10 @@ class Ui_Chat(object):
             self.stackedWidget.setCurrentIndex(idx + 1)
         else:
             self.stackedWidget.setCurrentIndex(1)
+        self.canal.llamar()
+        
+    def colgar(self):
+        self.canal.colgar()
 
     def retranslateUi(self, Chat):
         Chat.setWindowTitle(_translate("Chat", "Chat", None))
