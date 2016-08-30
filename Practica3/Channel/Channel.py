@@ -4,7 +4,7 @@ import sys, getopt
 sys.path.insert(0, '/')
 sys.path.insert(0, '../Constants')
 sys.path.append('../Constants/')
-from Constants.Constants import DEFAULT_PORT
+from Constants.Constants import *
 from ApiServer import MyApiServer
 from ApiClient import MyApiClient
 from threading import Thread

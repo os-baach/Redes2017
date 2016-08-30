@@ -3,14 +3,9 @@
 import sys
 import socket
 import pyaudio
-
-
-CHUNK = 1024
-RATE = 44100
-
 sys.path.append('../Constants/')
 import SimpleXMLRPCServer
-from Constants.Constants import DEFAULT_PORT
+from Constants.Constants import *
 from Constants.Singleton import *
 
 #Función para optener nuestra ip local.

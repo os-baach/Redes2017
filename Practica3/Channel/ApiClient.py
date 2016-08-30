@@ -3,15 +3,12 @@
 import sys
 sys.path.append('../Constants/')
 import xmlrpclib
-from Constants.Constants import DEFAULT_PORT
+from Constants.Constants import *
 import multiprocessing
 import threading
 import pyaudio
 import numpy
 """Constantes para la reproduccion de audio. """
-CHUNK = 1024
-RATE = 44100
-RECORD_SECONDS = 2
 
 class MyApiClient:
 
