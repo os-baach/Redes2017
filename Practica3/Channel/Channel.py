@@ -34,12 +34,15 @@ class Channel():
             con_local = False
         else:
             con_local = True
-        servidor = MyApiServer(self.interfaz, con_local,  my_port = my_port)
-        thread_servidor = Thread(target = servidor.serve)
+        self.servidor = MyApiServer(self.interfaz, con_local,  my_port = my_port)
+        thread_servidor = Thread(target = self.servidor.serve)
         # Para que el thread se cierre al cerrar el programa:
         thread_servidor.daemon=True
         thread_servidor.start()
         self.client = MyApiClient(ip = contact_ip, my_port = contact_port)
+        self.thread_reproductor = Thread(target = self.client.graba)
+        # Para que el thread se cierre al cerrar el programa:
+        self.thread_reproductor.daemon=True
         
     """**************************************************
     Metodo que se encarga de mandar texto al contacto con
@@ -47,5 +50,8 @@ class Channel():
     **************************************************"""
     def send_text(self, text):
         self.client.muestra_texto(text)
-        
 
+    # Manda el audio
+    def voice_chat(self):
+        self.thread_reproductor.start()
+        

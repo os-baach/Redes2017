@@ -3,7 +3,10 @@
 import sys
 sys.path.append('../Constants/')
 import xmlrpclib
-from Constants.Constants import DEFAULT_PORT
+import pyaudio
+import wave
+import array
+from Constants.Constants import *
 
 class MyApiClient:
 
@@ -18,3 +21,26 @@ class MyApiClient:
     def muestra_texto(self, texto):
         # Espero esto sea lo que hay que hacer:
         self.server.sendMessage_wrapper(texto)
+
+    # Graba el audio
+    def graba(self):
+        cadena_total = ''
+        p = pyaudio.PyAudio()
+        stream = p.open(format=FORMAT,
+                        channels=CHANNELS,
+                        rate=RATE,
+                        input=True,
+                        frames_per_buffer=CHUNK)
+        print("*recording")
+        frames = []
+        for i in range(0, int(RATE/CHUNK*RECORD_SECONDS)):
+            data  = stream.read(CHUNK)
+            cadena_total += array.array('B', data).tostring()
+            frames.append(data)
+        print("*done recording")
+
+        stream.stop_stream()
+        stream.close()
+        p.terminate()
+        print("*closed")
+        return self.server.echo_audio_wrapper(cadena_total)

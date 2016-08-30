@@ -2,11 +2,12 @@
 # -*- coding: utf-8 -*-
 import sys
 import socket
-
+import pyaudio
+import wave
+import time
 sys.path.append('../Constants/')
 import SimpleXMLRPCServer
-from Constants.Constants import DEFAULT_PORT
-from Constants.Constants import MENSAJE_VISTA
+from Constants.Constants import *
 from Constants.Singleton import *
 
 
@@ -33,12 +34,34 @@ class MyApiServer:
     # Inicializamos el servidor
     def serve(self):
         self.server.serve_forever()
+
+    # Creo que ésto ya lee audio :v
+    def echo_audio_wrapper(self, data):
+        frames = []
+        p = pyaudio.PyAudio()
+        stream = p.open(format=p.get_format_from_width(WIDTH),
+                        channels=CHANNELS,
+                        rate=RATE,
+                        output=True,
+                        frames_per_buffer=CHUNK)
+        for datos in data:
+            stream.write(data)
+            frames.append(data)                    
+        wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+        wf.setnchannels(CHANNELS)
+        wf.setsampwidth(p.get_sample_size(FORMAT))
+        wf.setframerate(RATE)
+        wf.writeframes(b''.join(frames))
+        wf.close()
+        stream.stop_stream()
+        stream.close()
+        p.terminate()
+
+        
         
 class FunctionWrapper:
     def __init__(self,interfaz):
-        # No estoy seguro de que haya algo que inicializar:
         self.interfaz = interfaz
-        pass
 
     """ **************************************************
     Procedimiento que ofrece nuestro servidor, este metodo sera llamado
@@ -51,5 +74,4 @@ class FunctionWrapper:
         self.interfaz.plainTextEdit.insertPlainText("\n")
         print message
 
-
-
+    
