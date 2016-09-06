@@ -1,6 +1,6 @@
 /* Código de mvilchis (usuario de github) */
 #define TAM_ETHERNET 14
-struct ip_header {
+struct ip_header{
   u_char ip_vhl; /* version << 4 | header length >> 2 */
   u_char ip_tos; /* type of service */
   u_short ip_len; /* total length */
@@ -13,5 +13,5 @@ struct ip_header {
   u_char ip_ttl; /* time to live */
   u_char ip_p; /* protocol */
   u_short ip_sum; /* checksum */
-  struct in_addr ip_src,ip_dst; /* source and dest address */
+  struct in_addr ip_src, ip_dst; /* source and dest address */
 };
