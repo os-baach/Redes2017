@@ -45,7 +45,7 @@ class MyApiClient:
             while self.llamada:
                 datos_encolados = self.queue.get()
                 data = xmlrpclib.Binary(datos_encolados)
-                self.proxy.sendVoice_wrapper(data)
+                self.server.sendVoice_wrapper(data)
         
     """ En esta función se agrega a la cola el audio con data para transmitir al destino y encolar las grabaciones """    
     def agrega_cola(self, cola):
