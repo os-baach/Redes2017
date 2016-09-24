@@ -7,3 +7,4 @@ clean.sh
 *.pyc
 ejemplo.py
 play.py
+*.tar
