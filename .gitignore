@@ -5,3 +5,5 @@ clean.sh
 *.pdf
 *__pycache__*
 *.pyc
+ejemplo.py
+play.py
