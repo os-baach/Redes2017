@@ -42,7 +42,7 @@ class MyApiClient:
             self.hilo_llamada.daemon = True
             self.hilo_llamada.start()
             if not self.ip_dest:
-                self.proxy = xmlrpclib.ServerProxy('http://localhost:' +str(self.my_port), allow_none=True)
+                self.server = xmlrpclib.ServerProxy('http://localhost:' +str(self.my_port), allow_none=True)
             else:
                 self.server = xmlrpclib.Server('http://' + self.ip_dest  + ':' + str(self.my_port))            
             while self.llamada:
