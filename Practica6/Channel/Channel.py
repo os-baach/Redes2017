@@ -80,10 +80,11 @@ class Channel():
             self.users.registra(self.me,get_local_ip(),my_port)
 
     def set_temp_ajeno(self,usr,ip,port):
-        self.usr_temp = usr
-        new_ip = ip
-        new_port = port
-        self.client = MyApiClient(ip = new_ip, my_port = new_port)
+        if self.me != str(usr):
+            self.usr_temp = usr
+            new_ip = ip
+            new_port = port
+            self.client = MyApiClient(ip = new_ip, my_port = new_port)
 
     def set_temp(self,usr):
         self.usr_temp = usr

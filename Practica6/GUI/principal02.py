@@ -46,25 +46,31 @@ class Ui_Chat(object):
         self.page_2 = QtGui.QWidget()
         self.page_2.setObjectName(_fromUtf8("page_2"))
         self.formLayoutWidget = QtGui.QWidget(self.page_2)
-        self.formLayoutWidget.setGeometry(QtCore.QRect(430, 260, 171, 171))
+        self.formLayoutWidget.setGeometry(QtCore.QRect(400, 260, 321, 181))
         self.formLayoutWidget.setObjectName(_fromUtf8("formLayoutWidget"))
         self.formLayout_2 = QtGui.QFormLayout(self.formLayoutWidget)
         self.formLayout_2.setLabelAlignment(QtCore.Qt.AlignCenter)
         self.formLayout_2.setObjectName(_fromUtf8("formLayout_2"))
-        self.salir = QtGui.QPushButton(self.formLayoutWidget)
-        self.salir.setObjectName(_fromUtf8("salir"))
-        self.formLayout_2.setWidget(9, QtGui.QFormLayout.FieldRole, self.salir)
-        self.newuser = QtGui.QPushButton(self.formLayoutWidget)
-        self.newuser.setObjectName(_fromUtf8("newuser"))
-        self.formLayout_2.setWidget(8, QtGui.QFormLayout.FieldRole, self.newuser)
         self.login = QtGui.QPushButton(self.formLayoutWidget)
         self.login.setObjectName(_fromUtf8("login"))
         self.formLayout_2.setWidget(7, QtGui.QFormLayout.FieldRole, self.login)
+        self.newuser = QtGui.QPushButton(self.formLayoutWidget)
+        self.newuser.setObjectName(_fromUtf8("newuser"))
+        self.formLayout_2.setWidget(8, QtGui.QFormLayout.FieldRole, self.newuser)
+        self.salir = QtGui.QPushButton(self.formLayoutWidget)
+        self.salir.setObjectName(_fromUtf8("salir"))
+        self.formLayout_2.setWidget(9, QtGui.QFormLayout.FieldRole, self.salir)
         self.gridLayoutWidget = QtGui.QWidget(self.page_2)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(340, 100, 381, 161))
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(350, 80, 381, 211))
         self.gridLayoutWidget.setObjectName(_fromUtf8("gridLayoutWidget"))
         self.gridLayout = QtGui.QGridLayout(self.gridLayoutWidget)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
+        self.label_2 = QtGui.QLabel(self.gridLayoutWidget)
+        self.label_2.setMinimumSize(QtCore.QSize(120, 16))
+        self.label_2.setScaledContents(False)
+        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.gridLayout.addWidget(self.label_2, 0, 0, 1, 2)
         self.user = QtGui.QLineEdit(self.gridLayoutWidget)
         self.user.setObjectName(_fromUtf8("user"))
         self.gridLayout.addWidget(self.user, 0, 2, 1, 1)
@@ -79,12 +85,6 @@ class Ui_Chat(object):
         self.label_5.setAlignment(QtCore.Qt.AlignCenter)
         self.label_5.setObjectName(_fromUtf8("label_5"))
         self.gridLayout.addWidget(self.label_5, 1, 0, 1, 1)
-        self.label_2 = QtGui.QLabel(self.gridLayoutWidget)
-        self.label_2.setMinimumSize(QtCore.QSize(120, 16))
-        self.label_2.setScaledContents(False)
-        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_2.setObjectName(_fromUtf8("label_2"))
-        self.gridLayout.addWidget(self.label_2, 0, 0, 1, 2)
         self.gridLayoutWidget_3 = QtGui.QWidget(self.page_2)
         self.gridLayoutWidget_3.setGeometry(QtCore.QRect(10, 100, 321, 321))
         self.gridLayoutWidget_3.setObjectName(_fromUtf8("gridLayoutWidget_3"))
@@ -132,12 +132,12 @@ class Ui_Chat(object):
         self.label_10.setObjectName(_fromUtf8("label_10"))
         self.gridLayout_3.addWidget(self.label_10, 7, 0, 1, 1)
         self.label_6 = QtGui.QLabel(self.page_2)
-        self.label_6.setGeometry(QtCore.QRect(100, 70, 161, 21))
+        self.label_6.setGeometry(QtCore.QRect(100, 50, 161, 41))
         self.label_6.setMinimumSize(QtCore.QSize(120, 16))
         self.label_6.setScaledContents(False)
         self.label_6.setObjectName(_fromUtf8("label_6"))
         self.user_3 = QtGui.QLabel(self.page_2)
-        self.user_3.setGeometry(QtCore.QRect(430, 70, 188, 21))
+        self.user_3.setGeometry(QtCore.QRect(470, 0, 188, 147))
         self.user_3.setMinimumSize(QtCore.QSize(120, 16))
         self.user_3.setScaledContents(False)
         self.user_3.setObjectName(_fromUtf8("user_3"))
@@ -288,7 +288,7 @@ class Ui_Chat(object):
         self.entrada_texto.returnPressed.connect(self.enviar_msg)
         self.lista_usuarios.itemDoubleClicked.connect(self.inicia_conversacion)
         # Fin de las dos instrucciones.
-                
+        
         self.retranslateUi(Chat)
         self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Chat)
@@ -317,6 +317,7 @@ class Ui_Chat(object):
             item = QListWidgetItem(nombre_usuario)
             self.lista_usuarios.addItem(item)
             self.empieza_refresh()
+            print("OK")
             self.mover_pagina(1)
             
     # Funcion que busca que un usuario con su contraenia esten en
@@ -329,49 +330,39 @@ class Ui_Chat(object):
         looking_for = nombre+":"+secret
         linea = data.readline()
         while linea:
-            print "linea:", linea
-            print "looking for:",looking_for
-            if ''.join(linea.splitlines()) == looking_for.replace(" ",""):
-                data.close()
+            if linea == looking_for:
                 return True
             else:
                 linea = data.readline()
-        data.close()
         return False
-
-    # Crea una conexion para empezar el chat.
+            
     def inicia_conversacion(self, item):    
-        self.ventana_chat.clear()
+        self.plainTextEdit.clear()
         txt = str(item.text())
         txt2 = txt.split('    Estado:')
         text = txt2[0]
         self.canal.set_temp(text)
-        self.mover_pagina(2)
-        self.canal.comienza_conver(text)    
+        self.__next_page()
+        self.canal.comienza_conver(text)
 
-    # Me regresa la disponibilidad de un usuario.
     def disponible(self,key):
         return self.canal.get_status(key)
 
-    # Metodo para enviar un mensaje de texto a un usuario.
     def enviar_msg(self):
         mensaje = self.entrada_texto.text()
         self.canal.send_text("%s" % mensaje)
         time.sleep(0.25)
-        self.ventana_chat.insertPlainText("Yo: "+mensaje+"\n")
-        self.ventana_chat.insertPlainText("\n")
+        self.plainTextEdit.insertPlainText("Yo: "+mensaje+"\n")
+        self.plainTextEdit.insertPlainText("\n")
         self.entrada_texto.clear()        
 
-    # Metodo para salir del programa desde la primer pantalla
     def exit_fun(self):
         sys.exit()
-
-    # Metodo para salir si es que ya iniciamos sesion.
+        
     def salir_fun(self):
         self.canal.log_out()
         sys.exit()
-
-    # Metodo que nos dice si algo es un numero.
+        
     def num(self,n):
         try:
             if str(n).replace(" ","") == "":
@@ -381,85 +372,39 @@ class Ui_Chat(object):
         except ValueError:
             return False
 
-    # Metodo que nos regresa una pagina al chat y cuelga.
     def regresar_chat_fun(self):
         self.mover_pagina(2)
         self.colgar()
 
-    # Mueve la pagina del programa al param que le pase.
     def mover_pagina(self,pag):
-        if pag < self.stackedWidget.count():
+        if pag < self.stackedWidget.count()-1:
             self.stackedWidget.setCurrentIndex(pag)
 
-    # Conecta a el servidor moviendo a la primera pagina.
     def conectar_server(self):
         self.mover_pagina(1)
-
-    # Metodo para ir al registro de un nuevo usuario.
-    def ir_registro(self):
-        self.mover_pagina(4)
         
-
-    # Metodo para ir al inicio del programa.
-    def ir_inicio(self):
-        self.mover_pagina(0)
-
-    # Metodo para registrar un nuevo usuario.
-    def registrar(self):
-        usuario = str(self.new_username.text()).replace(" ","")
-        contras = str(self.new_password.text())
-        contras_2 = str(self.my_port_2.text())
-        if usuario == "" or contras == "":
-            self.showdialog("Error","Existen campos vacios",
-                            "Ningun campo puede ser vacio, favor de"+
-                            " llenar los datos que se te piden",0)
-            return False
-        elif contras != contras_2:
-            self.showdialog("Error","Las contraseñas no coinciden",
-                            "Revisa que escribas la misma contraseña",1)
-            return False
+    """
+    def __next_page(self):
+        idx = self.stackedWidget.currentIndex()
+        if idx == 1:
+            self.stackedWidget.setCurrentIndex(idx + 1)
+            return idx+1
+        if idx < self.stackedWidget.count() - 1:
+            self.stackedWidget.setCurrentIndex(idx + 1)
         else:
-            data = open(ARCHIVO,'r+')
-            linea = data.readline()
-            while linea:
-                if usuario in linea:
-                    data.close()
-                    self.showdialog("Ups!","Alguien ya se llama como tu",
-                            "Lamentamos informarle que el usuario "+
-                                    usuario+" ya existe en la base de datos",1)
-                    return False
-                else:
-                    linea = data.readline()
-            secret = ""
-            for i in contras:
-                secret = secret+chr(ord(i)+5)
-            secret = usuario+":"+secret+"\n"
-            data.write(secret)
-            data.close()
-            self.ir_inicio()
-            self.showdialog("¡Yay!","Su registro fue exitoso",
-                            "Ahora inicia sesion para iniciar a conversar",2)
+            self.stackedWidget.setCurrentIndex(0)
+            
 
-            return True
-        
-    def showdialog(self, titulo, mensaje, accion, tipo):        
-        msg = QMessageBox()
-        if tipo == 0:
-            msg.setIcon(QMessageBox.Critical)
-        elif tipo == 1:
-            msg.setIcon(QMessageBox.Warning)
-        else:
-            msg.setIcon(QMessageBox.Information)            
-        msg.setText(mensaje)
-        msg.setInformativeText(accion)
-        msg.setWindowTitle(titulo)
-        msg.setStandardButtons(QMessageBox.Ok)
-        retval = msg.exec_()
-                
+    def __previous_page(self):
+        idx = self.stackedWidget.currentIndex()
+        self.stackedWidget.setCurrentIndex(idx-1)   """
 
-    # Empieza una videollamada con el usuario contactado.
     def llamar(self):
-        self.mover_pagina(3)
+        idx = self.stackedWidget.currentIndex()
+        if idx < self.stackedWidget.count() - 1:
+            self.stackedWidget.setCurrentIndex(idx + 1)
+        else:
+            self.stackedWidget.setCurrentIndex(1)
         self.canal.llamar()
         self.canal.videollamar()
         
@@ -490,16 +435,17 @@ class Ui_Chat(object):
             lock.release()
             varIt = varIt + 1
             time.sleep(0.5)
-        
+
+
     def retranslateUi(self, Chat):
         Chat.setWindowTitle(_translate("Chat", "Chat", None))
-        self.salir.setText(_translate("Chat", "    Salir    ", None))
-        self.newuser.setText(_translate("Chat", "Registrar", None))
         self.login.setText(_translate("Chat", "   Login   ", None))
+        self.newuser.setText(_translate("Chat", "Registrar", None))
+        self.salir.setText(_translate("Chat", "    Salir    ", None))
+        self.label_2.setText(_translate("Chat", "Nombre de usuario:", None))
         self.user.setPlaceholderText(_translate("Chat", "Usuario", None))
         self.password.setPlaceholderText(_translate("Chat", "Contraseña", None))
         self.label_5.setText(_translate("Chat", "Contraseña:", None))
-        self.label_2.setText(_translate("Chat", "Nombre de usuario:", None))
         self.ip_server.setPlaceholderText(_translate("Chat", "Ej: 192.168.33.1", None))
         self.port_server.setPlaceholderText(_translate("Chat", "Ej: 5000", None))
         self.label_11.setText(_translate("Chat", "Default: 5000 ", None))
@@ -532,10 +478,6 @@ class Ui_Chat(object):
         self.new_username.setPlaceholderText(_translate("Chat", "Ej: yo123", None))
         self.my_port_2.setPlaceholderText(_translate("Chat", "Password", None))
         self.newuser_2.setText(_translate("Chat", "Registrar", None))
-        #Contraseñas:
-        self.new_password.setEchoMode(QLineEdit.Password)
-        self.my_port_2.setEchoMode(QLineEdit.Password)
-        self.password.setEchoMode(QLineEdit.Password)
         #Funciones de comportamiento:
         #Funciones de salida:
         self.salir.clicked.connect(self.exit_fun)
@@ -546,16 +488,11 @@ class Ui_Chat(object):
         #Funcion para llamar a usuario:
         self.llamar_contacto.clicked.connect(self.llamar)
         #Funcion para iniciar sesion:
-        self.login.clicked.connect(self.iniciar_sesion)
+        #self.login.clicked.connect(self.iniciar_sesion)
+        self.login.clicked.connect(self.exit_fun)
         #Funcion para regresar de la llamada al chat:
         self.regresar_chat.clicked.connect(self.regresar_chat_fun)
         #Funcion para termianar una conversacion:
         self.terminar_conversacion.clicked.connect(self.conectar_server)
-        #Funcion que nos lleva al registro:
-        self.newuser.clicked.connect(self.ir_registro)
-        #Funcion que nos lleva al inicio:
-        self.newuser_3.clicked.connect(self.ir_inicio)
-        #Funcion que registra a un nuevo usuario:
-        self.newuser_2.clicked.connect(self.registrar)
-
+        #self.pushButton_2.clicked.connect(self.__next_page)
 

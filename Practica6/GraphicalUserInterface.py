@@ -19,7 +19,7 @@ import os
 from os import path
 from PyQt4 import QtCore, QtGui
 from GUI.principal import Ui_Chat
-#sys.path.append('./Channel/')
+from Constants.Constants import *
 from Channel.Channel import *
 from Channel.ApiServer import *
 
@@ -37,12 +37,17 @@ def main(argv):
     app = QtGui.QApplication(sys.argv)
     if sys.argv.__len__() > 2:
         puerto = int(sys.argv[2])
-    else:
-        puerto = 5000
-    print "Mi puerto:",puerto
-    if sys.argv.__len__() > 1 and ('-s' in sys.argv[1] or '-S' in sys.argv[1]):
+        print "Mi puerto:",puerto
+    elif sys.argv.__len__() > 1:
+        puerto = DEFAULT_PORT_SERVER
+        print "Mi puerto:",puerto
+    if sys.argv.__len__() > 1 and ('-s' == sys.argv[1] or '-S' == sys.argv[1]):
         print("Servidor")
         escucha = MyApiServerForever(puerto)
+        escucha.serve()
+    elif sys.argv.__len__() > 1 and ('-sl' in sys.argv[1] or '-SL' in sys.argv[1] or '-sL' in sys.argv[1] or '-Sl' in sys.argv[1]):
+        print("Servidor")
+        escucha = MyApiServerForever(puerto,ip = DEFAULT_IP)
         escucha.serve()
     else:
         main = mi_skype()

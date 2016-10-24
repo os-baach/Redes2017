@@ -7,7 +7,6 @@ sys.path.append('../Constants/')
 import SimpleXMLRPCServer
 import xmlrpclib
 from Constants.Constants import *
-from Constants.Singleton import *
 from numpy.lib import format as fmt
 from cStringIO import StringIO
 import threading
@@ -30,9 +29,12 @@ def get_local_ip():
 
 class MyApiServerForever():
 
-    def __init__(self,port):
+    def __init__(self,port,ip=None):
         self.port = port
-        self.ip = get_local_ip()
+        if ip is None:
+            self.ip = get_local_ip()
+        else:
+            self.ip = ip
         self.usuarios = {}
         print(self.ip)
         self.server = SimpleXMLRPCServer.SimpleXMLRPCServer((self.ip, self.port), allow_none = True)
@@ -165,9 +167,9 @@ class FunctionWrapper:
     def change_status(self,name,ip,puerto):
         if self.interfaz.stackedWidget.currentIndex() == 1:
             self.interfaz.stackedWidget.setCurrentIndex(2)
-            self.interfaz.plainTextEdit.clear()
-            self.interfaz.plainTextEdit.insertPlainText("El contacto: "+name+ " inicio un nuevo chat contigo! \n")
-            self.interfaz.plainTextEdit.insertPlainText("\n")
+            self.interfaz.ventana_chat.clear()
+            self.interfaz.ventana_chat.insertPlainText("El contacto: "+name+ " inicio un nuevo chat contigo! \n")
+            self.interfaz.ventana_chat.insertPlainText("\n")
             self.interfaz.canal.set_temp_ajeno(name,ip,puerto)
         
     #Funcion auxiliar que usara el thread para mostrar los frames.
@@ -183,8 +185,8 @@ class FunctionWrapper:
     ************************************************** """
     def sendMessage_wrapper(self, message):
         # Regresamos el mensaje pa' que lo agarre el servidor:
-        self.interfaz.plainTextEdit.insertPlainText("Contacto: "+message+ "\n")
-        self.interfaz.plainTextEdit.insertPlainText("\n")
+        self.interfaz.ventana_chat.insertPlainText("Contacto: "+message+ "\n")
+        self.interfaz.ventana_chat.insertPlainText("\n")
         print message
 
 
